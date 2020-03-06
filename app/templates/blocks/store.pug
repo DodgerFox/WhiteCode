@@ -1,0 +1,33 @@
+section.store
+    .wrap
+        .store-panel
+            form.selects
+                .select(data-select="filter-by")
+                    .select__selected
+                        p По названию
+                        img(src="assets/images/icon_arrow.svg")
+                    ul
+                        li(data="name").active По названию
+                        li(data="price") По цене
+                .select(data-select="filter-avaible")
+                    .select__selected
+                        p Есть в наличии
+                        img(src="assets/images/icon_arrow.svg")
+                    ul
+                        li(data="have").active Есть в наличии
+                        li(data="nohave") Нет в наличии
+                
+
+            .store-cart
+                img.store-cart__icon(src="assets/images/icon_cart.svg")
+                p.store-cart__counter 0
+                .bucket
+                    p.bucket__empty Добавьте товары в корзину
+                    
+                    
+        
+        .store-list
+           
+        
+        .store-pagination
+            ul.pagination

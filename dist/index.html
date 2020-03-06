@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+		<!-- Favicon-->
+		<link href="assets/images/favicons/favicon.ico" rel="icon" type="image/x-icon">
+		<!--share social-->
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content="White Code">
+		<meta property="og:title" content="Тестовое задание">
+		<meta property="og:description" content="Я хорош в своём деле">
+		<meta property="og:url" content="...">
+		<meta property="og:locale" content="ru_RU">
+		<meta property="og:image" content="...">
+		<meta property="og:image:width" content="1280">
+		<meta property="og:image:height" content="628">
+		<title>White Code | Alexey Chernov</title>
+		<!-- Common CSS-->
+		<link href="assets/styles/common.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<header class="header">
+			<div class="wrap">
+				<a class="header-logo" href="/">
+					<img src="assets/images/logo.svg" alt="white code logo">
+				</a>
+			</div>
+		</header>
+		<section class="store">
+			<div class="wrap">
+				<div class="store-panel">
+					<form class="selects">
+						<div class="select" data-select="filter-by">
+							<div class="select__selected">
+								<p>По названию</p>
+								<img src="assets/images/icon_arrow.svg">
+							</div>
+							<ul>
+								<li class="active" data="name">По названию</li>
+								<li data="price">По цене</li>
+							</ul>
+						</div>
+						<div class="select" data-select="filter-avaible">
+							<div class="select__selected">
+								<p>Есть в наличии</p>
+								<img src="assets/images/icon_arrow.svg">
+							</div>
+							<ul>
+								<li class="active" data="have">Есть в наличии</li>
+								<li data="nohave">Нет в наличии</li>
+							</ul>
+						</div>
+					</form>
+					<div class="store-cart">
+						<img class="store-cart__icon" src="assets/images/icon_cart.svg">
+						<p class="store-cart__counter">0</p>
+						<div class="bucket">
+							<p class="bucket__empty">Добавьте товары в корзину</p>
+						</div>
+					</div>
+				</div>
+				<div class="store-list"></div>
+				<div class="store-pagination">
+					<ul class="pagination"></ul>
+				</div>
+			</div>
+		</section>
+		<script src="assets/scripts/main.js"></script>
+	</body>
+
+</html>
