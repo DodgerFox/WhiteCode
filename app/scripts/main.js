@@ -17,6 +17,7 @@ const shop = {
         bucket.init()
         this.bindEvents()
     },
+    // получаем JSON стульев
     async data () {
         return fetch('https://api.jsonbin.io/b/5e61923fbaf60366f0e44351/1')
             .then(response => {
@@ -29,21 +30,25 @@ const shop = {
                 throw err
             })
     },
+    // кэшируем элементы
     catcheDOM () {
         this.$selects = document.querySelectorAll('select');
         this.$list = document.querySelector('.store-list');
         this.$pagination = document.querySelector('.pagination');
     },
+    // получаем данные из localstorage
     getStorage() {
         if (localStorage.length > 0) {
             this.storage = JSON.parse(localStorage.getItem("goods"));
             (this.storage) ? this.renderStorage(this.storage) : '' ;
         }
     },
+    // распределяем данные из localstorage
     renderStorage(storage) {
         this.goods = storage
         this.bindGoods(storage)        
     },
+    // формируем массив корзины товаров
     bindGoods (goods){
         const chairs = this.chairs;
         this.bucket = []
@@ -53,10 +58,12 @@ const shop = {
             this.bucket.push(current)
         })
     },
+    // обработчики событий
     bindEvents () {
         this.$pagination.addEventListener('click', event => this.changePage(event.target))
         this.$list.addEventListener('click', event => this.clickHandler(event.target))
     },
+    // событие клика
     clickHandler (element) {
         switch (element.classList[0]) {
             case ('item-button') :
@@ -64,6 +71,7 @@ const shop = {
                 break;
         } 
     },
+    // добавление единицы товара
     async addGood (element) {
         let iden = element.parentNode.parentNode.parentNode.getAttribute('data-id');
         let counter = 1;
@@ -89,6 +97,7 @@ const shop = {
         bucket.render(this.bucket)
         
     },
+    // удаление единицы товара
     deleteGoods(goods, iden){
         this.goods = goods
         let storage = []
@@ -109,11 +118,13 @@ const shop = {
         
         
     },
+    // клик по элементу пагинации
     changePage (element) {
         this.page = parseInt(element.getAttribute('data-page'));
         this.pagination(this.filtered || this.chairs)
         this.render(this.filtered || this.chairs)
     },
+    // рендер элементов пагинации
     pagination () {
         const pages = Math.ceil(this.chairs.length / this.total);
         const pagination = this.$pagination;
@@ -153,6 +164,7 @@ const shop = {
         
 
     },
+    // распределяем фильтры
     async filter ({by, have}){
         let array = this.chairs;
         array = (by) ? this.filterBy(array, by) : array;
@@ -162,13 +174,16 @@ const shop = {
         this.pagination(array)
         
     },
+    // фильтр по названию / цене
     filterBy(array, by){
         return array.sort((a, b) => a[by] > b[by] ? 1 : -1);
     },
+    // фильтр по наличию
     filterHave(array, have){
         const val = (have === 'have') ? true  : false;
         return array.filter(elem => elem.avaible === val)
     },
+    // рендер списка стульев
     render (chairs) {
         const max = this.page * this.total;
         const min = max - this.total;
@@ -206,29 +221,25 @@ let selects = {
         this.catcheDOM()
         this.bindEvents()
     },
-    clearFiltres () {
-        this.filters = {
-            by: null,
-            have: null
-        }
-    },
+    // кешируем элементы
     catcheDOM () {
         this.$selects = document.querySelector('.selects')
     },
+    // обработчики событий
     bindEvents () {
         this.$selects.addEventListener('click', (event) => this.clickHandler(event.target))
     },
+    // идентифицируем элемент клика
     clickHandler (element) {
-
         switch (element.tagName) {
             case ('DIV') :
                 element.classList.toggle('active')
                 break;
             case ('LI') :
                 this.changeFilters(element)
-                
         }
     },
+    // изменяем активные фильтры и передаем значения в shop
     changeFilters (element) {
         const val = element.innerHTML;
         const parent = element.parentNode;
@@ -249,13 +260,16 @@ let bucket = {
         this.bindEvents()
         this.render(shop.bucket)
     },
+    // кэшируем элементы
     catcheDOM () {
         this.$cart = document.querySelector('.store-cart');
         this.$bucket = document.querySelector('.bucket');
     },
+    // обрабатываем события
     bindEvents () {
         this.$cart.addEventListener('click', event => this.clickHandler(event.target))
     },
+    // идентифицируем элемент клика
     clickHandler (element) {
         
         switch (element.classList[0]) {
@@ -267,18 +281,20 @@ let bucket = {
                 break;
         }
     },
+    // удаляем товар в корзине
     async deleteGoods(button) {
         const iden = button.parentNode.getAttribute('data-id');
         let goods = this.goods;
+
         const element = goods.find(element => element.id === parseInt(iden));
         await goods.splice(goods.indexOf(element), 1)
-        
+
         this.goods = (goods.length === 0) ? null : goods;
         shop.deleteGoods(this.goods, iden)
-        
         this.render(this.goods)
         
     },
+    // рендер товаров в корзине
     render (goods) {
         const counter = this.$cart.querySelector('.store-cart__counter');
         const bucket = this.$bucket;
