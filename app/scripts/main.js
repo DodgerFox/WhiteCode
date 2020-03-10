@@ -2,7 +2,7 @@
 
 window.onload = () => {
     shop.init(15, 1)
-    // selects.init()
+    selects.init()
 }
 
 const shop = {
@@ -24,9 +24,7 @@ const shop = {
                 return response.json();
             })
             .then(data => {
-                this.chairs = data;
-                console.log(data);
-                
+                this.chairs = data;                
             })
             .catch(err => {
                 throw err
